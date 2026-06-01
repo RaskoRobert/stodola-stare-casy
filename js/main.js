@@ -67,6 +67,31 @@
     });
   }
 
+  // ── GDPR cookie lišta ────────────────────────────────────────────────────
+  try {
+    if (!localStorage.getItem("cookieConsent")) {
+      // relatívny prefix pre podpriečinok /blog/
+      var prefix = location.pathname.indexOf("/blog/") !== -1 ? "../" : "";
+      var bar = document.createElement("div");
+      bar.className = "cookiebar";
+      bar.setAttribute("role", "dialog");
+      bar.setAttribute("aria-label", "Súhlas s cookies");
+      bar.innerHTML =
+        '<p>Táto stránka používa nevyhnutné cookies pre svoju funkčnosť. Viac v sekcii ' +
+        '<a href="' + prefix + 'ochrana-osobnych-udajov.html">Ochrana osobných údajov</a>.</p>' +
+        '<div class="cb-actions">' +
+        '<button class="btn btn-light" type="button" data-cookie="ok">Rozumiem</button>' +
+        "</div>";
+      document.body.appendChild(bar);
+      requestAnimationFrame(function () { bar.classList.add("show"); });
+      bar.querySelector("[data-cookie=ok]").addEventListener("click", function () {
+        try { localStorage.setItem("cookieConsent", "1"); } catch (e) {}
+        bar.classList.remove("show");
+        setTimeout(function () { bar.remove(); }, 400);
+      });
+    }
+  } catch (e) { /* localStorage nedostupné — lištu nezobrazíme */ }
+
   // ── Lightbox galérie ─────────────────────────────────────────────────────
   var galLinks = document.querySelectorAll("[data-lightbox] a");
   if (galLinks.length) {

@@ -1,0 +1,14 @@
+{
+  "name": "Stodola Staré časy",
+  "short_name": "Stodola",
+  "description": "Rodinná reštaurácia a priestor na akcie v Trstenom pri Hornáde, 20 km od Košíc.",
+  "lang": "sk",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF4EB",
+  "theme_color": "#9E5644",
+  "icons": [
+    { "src": "assets/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
