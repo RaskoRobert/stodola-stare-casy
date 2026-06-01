@@ -3,8 +3,8 @@
 Responzívny, rýchly web pre rodinnú reštauráciu a priestor na akcie
 **Stodola Staré časy** v obci Trstené pri Hornáde (20 km od Košíc).
 
-Web prezentuje reštauráciu a jej služby (svadby, oslavy, firemné a detské akcie,
-kary, kultúrne podujatia), obsahuje kompletné menu, galériu, recenzie a
+Web prezentuje podnik a jeho služby (svadby, oslavy, firemné a detské akcie,
+kary, kultúrne podujatia), obsahuje kompletné menu, galériu, recenzie, blog a
 samostatnú **rezervačnú stránku** s dopytovým formulárom.
 
 Postavené ako čisté **HTML + CSS + JavaScript** — bez frameworkov a bez build kroku.
@@ -15,24 +15,41 @@ Postavené ako čisté **HTML + CSS + JavaScript** — bez frameworkov a bez bui
 
 ```
 stodola-stare-casy/
-├── index.html          # Domovská stránka
-├── menu.html           # Kompletné menu a ponuka
-├── rezervacia.html     # Rezervácia / nezáväzný dopyt
+├── index.html                  # Domovská stránka
+├── menu.html                   # Kompletné menu a ponuka
+├── rezervacia.html             # Rezervácia / nezáväzný dopyt
+├── svadby.html                 # Podstránka — svadby a obrady
+├── oslavy.html                 # Podstránka — rodinné oslavy
+├── firemne.html                # Podstránka — firemné podujatia
+├── detske.html                 # Podstránka — detské oslavy
+├── kar.html                    # Podstránka — smútočné posedenia (kar)
+├── kulturne.html               # Podstránka — kultúrne a komunitné akcie
+├── blog.html                   # Blog / magazín (prehľad)
+├── blog/                       # Články
+│   ├── svadba-pri-kosiciach.html
+│   ├── ako-zabezpecit-kar.html
+│   └── firemny-vecierok-pri-kosiciach.html
+├── 404.html                    # Chybová stránka (absolútne cesty)
+├── ochrana-osobnych-udajov.html# Zásady ochrany údajov (placeholder — TODO)
+├── reklamacny-poriadok.html    # Reklamačný poriadok (placeholder — TODO)
 ├── css/
-│   └── styles.css      # Spoločný dizajn (dizajn systém, premenné)
+│   └── styles.css              # Spoločný dizajn (dizajn systém, premenné)
+├── js/
+│   ├── main.js                 # Header, mobilné menu, reveal, lightbox, cookie lišta
+│   └── rezervacia.js           # Logika rezervačného formulára
 ├── assets/
-│   ├── logo.png        # Logo (priehľadné pozadie)
-│   └── img/            # Fotografie
-├── docs/
-│   ├── strategia.md    # Strategický podklad (štruktúra, SEO, sociálne siete)
-│   └── prezentacia.html# Prezentácia stratégie (otvor v prehliadači)
-├── .gitignore
+│   ├── logo.png                # Logo (priehľadné pozadie)
+│   ├── favicon-16.png, favicon-32.png, apple-touch-icon.png
+│   └── img/                    # Fotografie
+├── sitemap.xml
+├── robots.txt
+├── site.webmanifest
 └── README.md
 ```
 
 ## Ako spustiť lokálne
 
-Nie je potrebný žiadny build. Buď stačí otvoriť `index.html` v prehliadači,
+Nie je potrebný žiadny build. Stačí otvoriť `index.html` v prehliadači,
 alebo (odporúčané) spustiť jednoduchý lokálny server:
 
 ```bash
@@ -44,64 +61,64 @@ python3 -m http.server 8000
 npx serve
 ```
 
-Vo VS Code funguje aj rozšírenie **Live Server** (pravý klik na `index.html` → *Open with Live Server*).
+> **Pozn.:** Rezervačný formulár (odoslanie, mailto) a relatívne odkazy fungujú
+> najlepšie cez lokálny server, nie cez `file://`.
 
-## Práca v Claude Code
+## Hlavné funkcie
 
-```bash
-cd stodola-stare-casy
-claude
-```
-
-Potom môžeš zadávať úlohy v prirodzenom jazyku, napr.:
-- „Pridaj samostatnú podstránku pre svadby podľa docs/strategia.md."
-- „Vytvor blogovú sekciu a prvé tri články."
-- „Externalizuj inline JavaScript do js/main.js."
-
-## Nahranie na GitHub
-
-```bash
-cd stodola-stare-casy
-git init
-git add .
-git commit -m "Stodola Staré časy — nový web (prvá verzia)"
-
-# vytvor prázdny repozitár na github.com a potom:
-git branch -M main
-git remote add origin https://github.com/POUZIVATEL/stodola-stare-casy.git
-git push -u origin main
-```
+- Responzívny layout, sticky header s mobilným menu (burger) a rozbaľovacím menu **Podujatia**.
+- Scroll-reveal animácie (rešpektujú `prefers-reduced-motion`).
+- **Galéria s lightboxom** (čistý vanilla JS, ovládanie šípkami a Esc).
+- **Rezervačný formulár** s validáciou, anti-spam honeypotom, odoslaním cez
+  **Formspree** a **mailto:** ako zálohou, plus predvýber typu akcie cez `?typ=`.
+- **SEO:** unikátne `title`/`description`, canonical, Open Graph + Twitter meta,
+  `sitemap.xml`, `robots.txt` a structured data (JSON-LD: `Restaurant`, `Menu`,
+  `BreadcrumbList`, `Article`).
+- **Prístupnosť:** „preskočiť na obsah", viditeľný focus, aria atribúty,
+  zmysluplné alt texty.
+- **GDPR cookie lišta** s uložením súhlasu v `localStorage`.
 
 ## Nasadenie (zdarma)
 
-- **GitHub Pages:** Settings → Pages → Source: `main` / root. Web pôjde na
-  `https://POUZIVATEL.github.io/stodola-stare-casy/`.
-- **Netlify / Vercel:** stačí pretiahnuť priečinok do rozhrania (drag & drop)
-  alebo prepojiť GitHub repozitár. Žiadne nastavenia buildu.
+- **GitHub Pages:** Settings → Pages → Source: `main` / root.
+  - Ak používate **vlastnú doménu** (napr. `stodolastarecasy.sk`), všetko funguje vrátane `404.html`.
+  - Pri adrese typu `pouzivatel.github.io/stodola-stare-casy/` má `404.html` absolútne
+    cesty (`/css/...`) — funguje len na koreni domény. Pre projektový subpath nasaďte
+    radšej na vlastnú doménu alebo Netlify.
+- **Netlify / Vercel:** pretiahnite priečinok (drag & drop) alebo prepojte repozitár.
+  Žiadne nastavenia buildu. Netlify navyše vie spracovať formulár aj bez Formspree
+  (stačí pridať `netlify` atribút do `<form>`).
 
 ---
 
-## Dôležité — pred ostrým spustením
+## ⚠️ Pred ostrým spustením — TODO pre klienta
 
-1. **Fotografie** v `assets/img/` sú zatiaľ ukážkové (z dostupných podkladov,
-   niektoré v nižšom rozlíšení). Nahraď ich vlastnými kvalitnými fotkami pod
-   rovnakými názvami: `hero.jpg`, `vyzdoba.jpg`, `jedlo.jpg`, `kapela.jpg`,
-   `maj.jpg`, `gulas.jpg`, `halloween.jpg`, `tekvice.jpg`, `deti.jpg`.
-   Ideálne v rozlíšení ~1600 px na šírku, formát JPG/WebP.
-2. **Recenzie** na domovskej stránke (sekcia *Recenzie*) sú reprezentatívne —
-   nahraď ich reálnymi Google recenziami, prípadne nasaď živý Google widget.
-   Aktuálne hodnotenie: **4,5 ★ z 82+ recenzií** (Google / Restaurant Guru).
-3. **Rezervačný formulár** zatiaľ funguje cez `mailto:` (otvorí e-mailového
-   klienta s predvyplneným dopytom na info@stodolastarecasy.sk). Pre plnú
-   automatizáciu (uloženie do DB, potvrdzovací e-mail, kalendár dostupnosti)
-   treba doplniť backend alebo službu ako Formspree / Netlify Forms.
-4. **Kontaktné údaje** sú zjednotené na oficiálne číslo **0904 942 936**.
+1. **Formspree endpoint** — v `js/rezervacia.js` nahraďte placeholder
+   `FORMSPREE_ENDPOINT` reálnym ID formulára z [formspree.io](https://formspree.io)
+   (zaregistrujte sa, overte `info@stodolastarecasy.sk`). Kým je placeholder, formulár
+   sa odosiela cez e-mailového klienta (`mailto:`).
+2. **Fotografie** v `assets/img/` sú ukážkové. Nahraďte ich kvalitnými (~1600 px na
+   šírku, JPG/WebP) pod rovnakými názvami: `hero.jpg`, `vyzdoba.jpg`, `jedlo.jpg`,
+   `kapela.jpg`, `maj.jpg`, `gulas.jpg`, `halloween.jpg`, `tekvice.jpg`, `deti.jpg`.
+3. **Recenzie** na domovskej stránke aj podstránkach sú reprezentatívne — nahraďte
+   reálnymi Google recenziami alebo nasaďte živý widget. Hodnotenie: **4,5 ★ z 82+**.
+4. **Otváracie hodiny** (Št 16–21 · Pi–So 16–24 · Ne 16–21, Po–St zatvorené) dajte
+   klientovi **potvrdiť** — sú použité aj v JSON-LD na domovskej stránke.
+5. **GPS súradnice** pre mapu — momentálne sa používa textová adresa. Doplňte presné
+   súradnice, ak ich klient dodá.
+6. **Právne stránky** `ochrana-osobnych-udajov.html` a `reklamacny-poriadok.html` sú
+   **placeholdery** — nechajte ich právne skontrolovať a doplniť.
+7. **Favicon** je vygenerovaný z loga (`assets/favicon-*.png`). Ak má klient
+   štvorcový variant loga, ideálne ho použiť pre ostrejšiu ikonu.
+8. **Doména v meta** — všetky `canonical`/`og:url`/`sitemap.xml` používajú
+   `https://www.stodolastarecasy.sk/`. Ak bude doména iná, prepíšte ju.
 
 ## Použité technológie
 
 - HTML5, CSS3 (custom properties, grid, flexbox), vanilla JavaScript
 - Fonty: Fraunces + Hanken Grotesk (Google Fonts)
-- Google Maps embed, IntersectionObserver pre animácie pri scrollovaní
+- Google Maps embed, IntersectionObserver pre animácie
+- Štruktúrované dáta schema.org (JSON-LD)
 
 ## Farby (dizajn systém)
 
