@@ -9,8 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script src="js/main.js" defer></script>
+<script src="js/rezervacia.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#obsah">Preskočiť na obsah</a>
 <header class="site" id="hdr">
   <div class="wrap hdr">
     <a class="brand" href="index.html#top"><img src="assets/logo.png" alt="Stodola Staré časy"></a>
@@ -29,6 +32,7 @@
     </div>
   </div>
 </header>
+<main id="obsah">
 <section class="phero"><svg class="sprig" style="top:-26px;left:-30px;width:200px;transform:rotate(10deg)" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 195 C96 150 92 110 86 70 C82 44 74 24 60 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><g fill="currentColor"><ellipse cx="70" cy="150" rx="20" ry="11" transform="rotate(-28 70 150)"/><ellipse cx="128" cy="138" rx="20" ry="11" transform="rotate(26 128 138)"/><ellipse cx="64" cy="116" rx="18" ry="10" transform="rotate(-32 64 116)"/><ellipse cx="124" cy="104" rx="18" ry="10" transform="rotate(22 124 104)"/><ellipse cx="62" cy="82" rx="15" ry="9" transform="rotate(-36 62 82)"/><ellipse cx="116" cy="72" rx="15" ry="9" transform="rotate(20 116 72)"/><ellipse cx="66" cy="50" rx="12" ry="7" transform="rotate(-40 66 50)"/><ellipse cx="104" cy="44" rx="12" ry="7" transform="rotate(16 104 44)"/><ellipse cx="76" cy="24" rx="9" ry="5.5" transform="rotate(-44 76 24)"/></g></svg>
   <div class="wrap reveal">
     <div class="kicker">Nezáväzná rezervácia</div>
@@ -38,7 +42,9 @@
 </section>
 <section class="sec" style="padding-top:clamp(30px,5vw,56px)">
   <div class="wrap resv">
-    <form class="form reveal" id="resvForm">
+    <form class="form reveal" id="resvForm" novalidate>
+      <!-- honeypot proti spamu — ľudia toto pole nevidia, nevypĺňajú -->
+      <div class="hp" aria-hidden="true"><label>Nevypĺňajte<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <div class="fstep">
         <div class="st"><span class="n">1</span> Typ udalosti</div>
         <div class="choices" id="typChoices">
@@ -97,7 +103,7 @@
         <label class="gdpr"><input type="checkbox" required> Súhlasím so spracovaním osobných údajov za účelom vybavenia dopytu.</label>
       </div>
       <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Odoslať nezáväzný dopyt</button>
-      <p style="font-size:12.5px;color:var(--ink3);text-align:center;margin-top:12px">Odoslaním sa otvorí váš e-mailový klient s predvyplneným dopytom pre Stodolu.</p>
+      <p style="font-size:12.5px;color:var(--ink3);text-align:center;margin-top:12px">Dopyt je nezáväzný a bez poplatku. Ozveme sa vám do 24 hodín.</p>
     </form>
 
     <div class="aside">
@@ -130,6 +136,7 @@
     </div>
   </div>
 </section>
+</main>
 <footer class="site">
   <div class="wrap">
     <div class="fgrid">
@@ -177,45 +184,5 @@
     </div>
   </div>
 </footer>
-<script>
-// header scroll
-const hdr=document.getElementById('hdr');
-addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));
-// mobile nav
-const b=document.getElementById('burger'),nav=document.getElementById('nav');
-if(b){b.addEventListener('click',()=>{b.classList.toggle('open');nav.classList.toggle('open');});
- nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');nav.classList.remove('open');}));}
-// reveal
-const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*70)+'ms';io.observe(el);});
-</script>
-<script>
-// prefill event type from ?typ=
-const params=new URLSearchParams(location.search);
-const typ=params.get('typ');
-if(typ){const el=document.querySelector('input[name="typ"][value="'+CSS.escape(typ)+'"]');if(el)el.checked=true;}
-// submit -> mailto
-document.getElementById('resvForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const f=e.target;const g=n=>(f.querySelector('[name="'+n+'"]:checked')||f.querySelector('[name="'+n+'"]')||{}).value||'';
-  const typ=(f.querySelector('input[name=typ]:checked')||{}).value||'neuvedené';
-  const dop=[...f.querySelectorAll('input[name=doplnok]:checked')].map(x=>x.value).join(', ')||'žiadne';
-  const body=
-    'Typ udalosti: '+typ+'%0D%0A'+
-    'Dátum: '+(f.datum.value||'-')+'%0D%0A'+
-    'Počet hostí: '+(f.hostia.value||'-')+'%0D%0A'+
-    'Priestor: '+(f.priestor.value||'-')+'%0D%0A'+
-    'Výzdoba: '+(f.balik.value||'-')+'%0D%0A'+
-    'Doplnky: '+dop+'%0D%0A'+
-    'Meno: '+(f.meno.value||'-')+'%0D%0A'+
-    'Telefón: '+(f.tel.value||'-')+'%0D%0A'+
-    'E-mail: '+(f.email.value||'-')+'%0D%0A'+
-    'Poznámka: '+(f.sprava.value||'-');
-  const subj='Dopyt na rezerváciu — '+typ;
-  window.location.href='mailto:info@stodolastarecasy.sk?subject='+encodeURIComponent(subj)+'&body='+body;
-  document.getElementById('confirm').classList.add('show');
-  document.getElementById('confirm').scrollIntoView({behavior:'smooth',block:'center'});
-});
-</script>
 </body>
 </html>
