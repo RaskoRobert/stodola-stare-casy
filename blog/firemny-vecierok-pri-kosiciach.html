@@ -17,13 +17,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/styles.css?v=32">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
-<meta name="theme-color" content="#9E5644">
-<script src="../js/main.js" defer></script>
+<meta name="theme-color" content="#36221D">
+<script src="../js/main.js?v=15" defer></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
 {"@type":"ListItem","position":1,"name":"Domov","item":"https://www.stodolastarecasy.sk/"},
@@ -38,42 +39,53 @@
 <a class="skip" href="#obsah">Preskočiť na obsah</a>
 <header class="site" id="hdr">
   <div class="wrap hdr">
-    <a class="brand" href="../index.html#top"><img src="../assets/logo.png" alt="Stodola Staré časy"></a>
-    <nav class="main" id="nav">
-      <a class="lnk" href="../index.html#onas">O nás</a>
-      <a class="lnk" href="../index.html#priestory">Priestory</a>
-      <div class="has-sub">
-        <a class="lnk sub-toggle" href="../svadby.html" aria-haspopup="true" aria-expanded="false">Podujatia<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
-        <ul class="submenu">
-          <li><a href="../svadby.html">Svadby a obrady</a></li>
-          <li><a href="../oslavy.html">Rodinné oslavy</a></li>
-          <li><a href="../firemne.html">Firemné podujatia</a></li>
-          <li><a href="../detske.html">Detské oslavy</a></li>
-          <li><a href="../kar.html">Smútočné posedenia</a></li>
-          <li><a href="../kulturne.html">Kultúrne akcie</a></li>
-        </ul>
-      </div>
-      <a class="lnk" href="../menu.html">Menu</a>
-      <a class="lnk" href="../index.html#galeria">Galéria</a>
-      <a class="lnk" href="../blog.html">Blog</a>
-      <a class="lnk" href="../index.html#kontakt">Kontakt</a>
-    </nav>
+    <a class="brand" href="../index.html#top"><img class="logo-light" src="../assets/logo-onlight.svg" alt="Stodola Staré časy" width="120" height="46"><img class="logo-dark" src="../assets/logo-white.svg" alt="Stodola Staré časy" width="120" height="46"></a>
+    <div class="hdr-menu" id="nav">
+      <nav class="main nav-left">
+        <div class="has-sub">
+          <a class="lnk sub-toggle" href="../o-nas.html#onas" aria-haspopup="true" aria-expanded="false">O nás<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <ul class="submenu">
+            <li><a href="../o-nas.html#onas">O nás</a></li>
+            <li><a href="../o-nas.html#priestory">Priestory</a></li>
+            <li><a href="../galeria.html">Galéria</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="has-sub">
+          <a class="lnk sub-toggle" href="../svadby.html" aria-haspopup="true" aria-expanded="false">Podujatia<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <ul class="submenu">
+            <li><a href="../svadby.html">Svadby a obrady</a></li>
+            <li><a href="../oslavy.html">Rodinné oslavy</a></li>
+            <li><a href="../firemne.html">Firemné podujatia</a></li>
+            <li><a href="../detske.html">Detské oslavy</a></li>
+            <li><a href="../kar.html">Smútočné posedenia</a></li>
+            <li><a href="../kulturne.html">Kultúrne akcie</a></li>
+          </ul>
+        </div>
+        <a class="lnk" href="../menu.html">Menu</a>
+        <a class="lnk" href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
     <div class="hdr-cta">
       <a class="hdr-phone" href="tel:+421904942936"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.8 2.1z"/></svg>0904 942 936</a>
-      <a class="btn btn-primary" href="../rezervacia.html?typ=Firemná akcia">Rezervovať termín</a>
+      <a class="btn btn-primary btn-sm" href="../rezervacia.html?typ=Firemná akcia">Rezervovať termín</a>
       <button class="burger" id="burger" aria-label="Otvoriť menu" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 <main id="obsah">
-<article class="sec article">
+<section class="bhero" style="background-image:url('../assets/img/kapela.jpg')">
   <div class="wrap">
-    <nav class="breadcrumbs"><a href="../index.html#top">Domov</a> › <a href="../blog.html">Blog</a> › Firemný večierok</nav>
-    <div class="meta-line"><span class="tag">Firemné akcie</span><span>Čítanie ~6 min</span></div>
+    <nav class="crumbs reveal" aria-label="Omrvinková navigácia"><a class="crumb-back" href="../blog.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Späť</a><ol class="crumb-trail"><li><a href="../index.html">Domov</a></li><li><a href="../blog.html">Blog</a></li><li aria-current="page">Firemný večierok pri Košiciach</li></ol></nav>
+    
     <h1>Vianočný firemný večierok pri Košiciach: ako ho zorganizovať</h1>
     <p class="lead">Firemný či vianočný večierok je odmena celému tímu za rok práce — a zároveň príležitosť stretnúť sa v inom prostredí ako kancelária. Poradíme vám, ako ho naplánovať bez stresu: kedy rezervovať termín, ako vybrať priestor podľa počtu ľudí, čo dať na stôl a na čo nezabudnúť pri logistike a fakturácii.</p>
-    <figure><img loading="lazy" src="../assets/img/kapela.jpg" alt="Živá kapela hrá počas firemného večierka v rustikálnej sále"><figcaption>Pódium s ozvučením v hlavnej sále Stodoly Staré časy.</figcaption></figure>
+    <div class="meta-line"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22l-9-9V3h10z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg>Firemné akcie</span><span class="rt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>Čítanie ~6 min</span></div>
+  </div>
+</section>
 
+<article class="sec article after-bhero">
+  <div class="wrap">
     <div class="prose">
       <h2>1. Prečo firemný večierok mimo mesta funguje</h2>
       <p>Veľkou výhodou priestoru za mestom je <strong>súkromie a pokoj</strong>. V Stodole Staré časy si môžete prenajať celý areál len pre svoju firmu — bez cudzích hostí, bez hluku z ulice a bez kompromisov pri programe. Tím sa uvoľní inak ako v reštaurácii v centre, kde sa nedá ani poriadne porozprávať.</p>
@@ -144,50 +156,33 @@
 </main>
 <footer class="site">
   <div class="wrap">
-    <div class="fgrid">
-      <div>
-        <img class="flogo" src="../assets/logo.png" alt="Stodola Staré časy">
-        <p>Rodinný priestor na vaše najkrajšie chvíle — svadby, oslavy a firemné akcie 20&nbsp;km od&nbsp;Košíc.</p>
-        <div class="socials">
-          <a href="https://www.facebook.com/stodolastarecasy" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="https://www.instagram.com/stodola_stare_casy/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-        </div>
-      </div>
-      <div>
-        <h4>Navigácia</h4>
-        <ul>
-          <li><a href="../index.html#onas">O nás</a></li>
-          <li><a href="../index.html#priestory">Priestory</a></li>
-          <li><a href="../menu.html">Menu &amp; ponuka</a></li>
-          <li><a href="../index.html#galeria">Galéria</a></li>
-          <li><a href="../index.html#recenzie">Recenzie</a></li>
-          <li><a href="../blog.html">Blog</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Akcie</h4>
-        <ul>
-          <li><a href="../svadby.html">Svadby a obrady</a></li>
-          <li><a href="../oslavy.html">Rodinné oslavy</a></li>
-          <li><a href="../firemne.html">Firemné podujatia</a></li>
-          <li><a href="../detske.html">Detské oslavy</a></li>
-          <li><a href="../kar.html">Smútočné posedenia</a></li>
-          <li><a href="../kulturne.html">Kultúrne akcie</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Kontakt</h4>
-        <ul>
-          <li>JRD 77/A, 044&nbsp;11 Trstené pri&nbsp;Hornáde</li>
-          <li><a href="tel:+421904942936">0904 942 936</a></li>
-          <li><a href="mailto:info@stodolastarecasy.sk">info@stodolastarecasy.sk</a></li>
-          <li><a href="https://www.google.com/maps/search/?api=1&query=Stodola+Star%C3%A9+%C4%8Dasy+Trsten%C3%A9+pri+Horn%C3%A1de" target="_blank" rel="noopener">Zobraziť na mape →</a></li>
-        </ul>
+    <div class="fcta reveal">
+      <h2 class="fcta-h">Doprajte si zážitok, na ktorý sa <span class="em">nezabúda</span>.</h2>
+      <div class="fcta-r">
+        <p>„Pozornosť venovaná každému detailu bola úžasná — chuť aj prezentácia ako umelecké dielo." Pripravíme to aj pre vás.</p>
+        <a class="btn btn-light" href="../rezervacia.html?typ=Firemná akcia">Rezervovať termín</a>
       </div>
     </div>
-    <div class="fbot">
-      <span>© 2026 Stodola Staré časy · JJ Solutions s.r.o.</span>
-      <span><a href="../ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> · <a href="../reklamacny-poriadok.html">Reklamačný poriadok</a></span>
+    <div class="finner">
+      <img class="flogo" src="../assets/logo-ondark.svg" alt="Stodola Staré časy">
+      <nav class="fnav2">
+        <a href="../o-nas.html#onas">O nás</a>
+        <a href="../menu.html">Menu</a>
+        <a href="../svadby.html">Podujatia</a>
+        <a href="../galeria.html">Galéria</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+      <div class="fcontact-row">
+        <span>JRD 77/A, 044&nbsp;11 Trstené pri&nbsp;Hornáde</span>
+        <a href="tel:+421904942936">0904 942 936</a>
+        <a href="mailto:info@stodolastarecasy.sk">info@stodolastarecasy.sk</a>
+        <span class="fsoc">
+          <a href="https://www.facebook.com/stodolastarecasy" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com/stodola_stare_casy/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        </span>
+      </div>
+      <div class="fbot">© 2026 Stodola Staré časy · JJ Solutions s.r.o. · <a href="../ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> · <a href="../reklamacny-poriadok.html">Reklamačný poriadok</a></div>
     </div>
   </div>
 </footer>
