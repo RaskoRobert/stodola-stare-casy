@@ -1,10 +1,16 @@
 {
   "name": "stodola-stare-casy",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Statická webová stránka Stodola Staré časy",
+  "description": "Webová stránka Stodola Staré časy (Next.js)",
   "scripts": {
-    "dev": "python3 -m http.server 8000",
-    "start": "python3 -m http.server 8000"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   }
 }

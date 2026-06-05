@@ -1,4 +1,4 @@
-# Stodola Staré časy — webová stránka
+# Stodola Staré časy — webová stránka (Next.js)
 
 Responzívny, rýchly web pre rodinnú reštauráciu a priestor na akcie
 **Stodola Staré časy** v obci Trstené pri Hornáde (20 km od Košíc).
@@ -7,7 +7,51 @@ Web prezentuje podnik a jeho služby (svadby, oslavy, firemné a detské akcie,
 kary, kultúrne podujatia), obsahuje kompletné menu, galériu, recenzie, blog a
 samostatnú **rezervačnú stránku** s dopytovým formulárom.
 
-Postavené ako čisté **HTML + CSS + JavaScript** — bez frameworkov a bez build kroku.
+Pôvodne statický web (HTML + CSS + JS) bol prepísaný do **Next.js (App Router)**
+a je pripravený na nasadenie na **Vercel**. Dizajn, obsah aj správanie zostali
+zachované 1:1 — pôvodné CSS a JavaScript sa používajú bez zmien.
+
+---
+
+## Ako spustiť lokálne
+
+Potrebný je **Node.js 18.18+** (odporúčané 20+).
+
+```bash
+npm install      # nainštaluje závislosti (Next, React)
+npm run dev      # vývojový server na http://localhost:3000
+```
+
+Ďalšie príkazy:
+
+```bash
+npm run build    # produkčný build (overí, že je všetko v poriadku)
+npm start        # spustí produkčný build lokálne
+```
+
+> **Riešenie problémov (len lokálne, Windows):** ak `npm install` alebo build
+> zlyhá s chybou `unable to verify the first certificate` / *Failed to load SWC
+> binary*, váš firemný proxy alebo antivírus zachytáva HTTPS. Spustite príkaz so
+> systémovými certifikátmi (Node 22+):
+> ```powershell
+> $env:NODE_OPTIONS="--use-system-ca"; npm install
+> ```
+> Týka sa to **iba tohto počítača** — nasadenie na Vercel (Linux) tým nie je dotknuté.
+
+## Nasadenie na Vercel
+
+1. Nahrajte repozitár na GitHub (alebo prepojte priamo).
+2. Na [vercel.com](https://vercel.com) → **Add New… → Project** → vyberte repozitár.
+3. Vercel automaticky rozpozná **Next.js** — netreba nič nastavovať
+   (Framework Preset: Next.js, Build Command: `next build`).
+4. Kliknite **Deploy**. Hotovo.
+
+> Alternatívne cez CLI: `npm i -g vercel` a potom `vercel` v priečinku projektu.
+
+Po nasadení nastavte vlastnú doménu (`stodolastarecasy.sk`) v sekcii
+**Settings → Domains**. Adresy v `metadata`, `sitemap.xml` a structured data
+používajú `https://www.stodolastarecasy.sk/` — ak bude doména iná, upravte ju
+(`app/layout.js` → `metadataBase`, `public/sitemap.xml`).
 
 ---
 
@@ -15,121 +59,80 @@ Postavené ako čisté **HTML + CSS + JavaScript** — bez frameworkov a bez bui
 
 ```
 stodola-stare-casy/
-├── index.html                  # Domovská stránka
-├── menu.html                   # Kompletné menu a ponuka
-├── rezervacia.html             # Rezervácia / nezáväzný dopyt
-├── svadby.html                 # Podstránka — svadby a obrady
-├── oslavy.html                 # Podstránka — rodinné oslavy
-├── firemne.html                # Podstránka — firemné podujatia
-├── detske.html                 # Podstránka — detské oslavy
-├── kar.html                    # Podstránka — smútočné posedenia (kar)
-├── kulturne.html               # Podstránka — kultúrne a komunitné akcie
-├── blog.html                   # Blog / magazín (prehľad)
-├── blog/                       # Články
-│   ├── svadba-pri-kosiciach.html
-│   ├── ako-zabezpecit-kar.html
-│   └── firemny-vecierok-pri-kosiciach.html
-├── 404.html                    # Chybová stránka (absolútne cesty)
-├── ochrana-osobnych-udajov.html# Zásady ochrany údajov (placeholder — TODO)
-├── reklamacny-poriadok.html    # Reklamačný poriadok (placeholder — TODO)
-├── css/
-│   └── styles.css              # Spoločný dizajn (dizajn systém, premenné)
-├── js/
-│   ├── main.js                 # Header, mobilné menu, reveal, lightbox, cookie lišta
-│   └── rezervacia.js           # Logika rezervačného formulára
-├── assets/
-│   ├── logo.png                # Logo (priehľadné pozadie)
-│   ├── favicon-16.png, favicon-32.png, apple-touch-icon.png
-│   └── img/                    # Fotografie
-├── sitemap.xml
-├── robots.txt
-├── site.webmanifest
+├── app/                         # Next.js App Router — jedna zložka = jedna URL
+│   ├── layout.js                # Spoločný rámec: <head>, hlavička, pätička, skripty
+│   ├── globals.css              # Dizajn systém (pôvodné styles.css + fonty)
+│   ├── page.js                  # Domovská stránka (/)
+│   ├── not-found.js             # Stránka 404
+│   ├── o-nas/page.js            # /o-nas
+│   ├── menu/page.js             # /menu
+│   ├── galeria/page.js          # /galeria
+│   ├── kontakt/page.js          # /kontakt
+│   ├── rezervacia/page.js       # /rezervacia (+ rezervačný formulár)
+│   ├── svadby|oslavy|firemne|detske|kar|kulturne/page.js   # podujatia
+│   ├── blog/page.js             # /blog (prehľad)
+│   ├── blog/<slug>/page.js      # jednotlivé články
+│   ├── ochrana-osobnych-udajov/page.js
+│   └── reklamacny-poriadok/page.js
+├── components/
+│   ├── SiteHeader.js            # Spoločná hlavička
+│   └── SiteFooter.js            # Spoločná pätička
+├── public/                      # Statické súbory (servované z koreňa /)
+│   ├── assets/                  # Obrázky, logá, favicony
+│   ├── js/                      # main.js, rezervacia.js (pôvodné skripty)
+│   ├── sitemap.xml, robots.txt, site.webmanifest
+├── legacy/                      # Pôvodný statický web (archív, neservuje sa)
+├── next.config.mjs
+├── package.json
 └── README.md
 ```
 
-## Ako spustiť lokálne
+### Ako je to poskladané
 
-Nie je potrebný žiadny build. Stačí otvoriť `index.html` v prehliadači,
-alebo (odporúčané) spustiť jednoduchý lokálny server:
-
-```bash
-# Python 3
-python3 -m http.server 8000
-# potom otvor http://localhost:8000
-
-# alebo Node
-npx serve
-```
-
-> **Pozn.:** Rezervačný formulár (odoslanie, mailto) a relatívne odkazy fungujú
-> najlepšie cez lokálny server, nie cez `file://`.
+- **`app/layout.js`** obsahuje spoločnú hlavičku, pätičku, pripojenie fontov,
+  globálne CSS a načítanie `main.js`. Obsah každej stránky sa vkladá dovnútra.
+- Každá **`page.js`** nesie svoje SEO `metadata` (title, description, canonical,
+  Open Graph), prípadné **JSON-LD** structured data a samotný obsah stránky.
+- Obsah pochádza z pôvodného HTML, takže vzhľad je identický. Stránky je možné
+  postupne prepísať do plnohodnotných React komponentov, ak bude treba.
 
 ## Hlavné funkcie
 
 - Responzívny layout, sticky header s mobilným menu (burger) a rozbaľovacím menu **Podujatia**.
-- Scroll-reveal animácie (rešpektujú `prefers-reduced-motion`).
-- **Galéria s lightboxom** (čistý vanilla JS, ovládanie šípkami a Esc).
+- Scroll-reveal animácie, galéria s lightboxom, hero crossfade, typewriter, počítadlá.
 - **Rezervačný formulár** s validáciou, anti-spam honeypotom, odoslaním cez
   **Formspree** a **mailto:** ako zálohou, plus predvýber typu akcie cez `?typ=`.
-- **SEO:** unikátne `title`/`description`, canonical, Open Graph + Twitter meta,
-  `sitemap.xml`, `robots.txt` a structured data (JSON-LD: `Restaurant`, `Menu`,
-  `BreadcrumbList`, `Article`).
-- **Prístupnosť:** „preskočiť na obsah", viditeľný focus, aria atribúty,
-  zmysluplné alt texty.
-- **GDPR cookie lišta** s uložením súhlasu v `localStorage`.
-
-## Nasadenie (zdarma)
-
-- **GitHub Pages:** Settings → Pages → Source: `main` / root.
-  - Ak používate **vlastnú doménu** (napr. `stodolastarecasy.sk`), všetko funguje vrátane `404.html`.
-  - Pri adrese typu `pouzivatel.github.io/stodola-stare-casy/` má `404.html` absolútne
-    cesty (`/css/...`) — funguje len na koreni domény. Pre projektový subpath nasaďte
-    radšej na vlastnú doménu alebo Netlify.
-- **Netlify / Vercel:** pretiahnite priečinok (drag & drop) alebo prepojte repozitár.
-  Žiadne nastavenia buildu. Netlify navyše vie spracovať formulár aj bez Formspree
-  (stačí pridať `netlify` atribút do `<form>`).
+- **SEO:** unikátne `title`/`description`, canonical, Open Graph, `sitemap.xml`,
+  `robots.txt` a structured data (JSON-LD: `Restaurant`, `Menu`, `BreadcrumbList`, `Article`).
+- **GDPR cookie lišta**, prístupnosť (skip link, focus, aria, alt texty).
 
 ---
 
 ## ⚠️ Pred ostrým spustením — TODO pre klienta
 
-1. **Formspree endpoint** — v `js/rezervacia.js` nahraďte placeholder
-   `FORMSPREE_ENDPOINT` reálnym ID formulára z [formspree.io](https://formspree.io)
-   (zaregistrujte sa, overte `info@stodolastarecasy.sk`). Kým je placeholder, formulár
-   sa odosiela cez e-mailového klienta (`mailto:`).
-2. **Fotografie** v `assets/img/` sú ukážkové. Nahraďte ich kvalitnými (~1600 px na
-   šírku, JPG/WebP) pod rovnakými názvami: `hero.jpg`, `vyzdoba.jpg`, `jedlo.jpg`,
-   `kapela.jpg`, `maj.jpg`, `gulas.jpg`, `halloween.jpg`, `tekvice.jpg`, `deti.jpg`.
-3. **Recenzie** na domovskej stránke aj podstránkach sú reprezentatívne — nahraďte
-   reálnymi Google recenziami alebo nasaďte živý widget. Hodnotenie: **4,5 ★ z 82+**.
+1. **Formspree endpoint** — v `public/js/rezervacia.js` nahraďte placeholder
+   `FORMSPREE_ENDPOINT` reálnym ID formulára z [formspree.io](https://formspree.io).
+   Kým je placeholder, formulár sa odosiela cez e-mailového klienta (`mailto:`).
+2. **Fotografie** v `public/assets/img/` sú ukážkové — nahraďte ich kvalitnými
+   (~1600 px na šírku) pod rovnakými názvami.
+3. **Recenzie** na stránkach sú reprezentatívne — nahraďte reálnymi Google
+   recenziami. Hodnotenie: **4,5 ★ z 82+**.
 4. **Otváracie hodiny** (Št 16–21 · Pi–So 16–24 · Ne 16–21, Po–St zatvorené) dajte
-   klientovi **potvrdiť** — sú použité aj v JSON-LD na domovskej stránke.
-5. **GPS súradnice** pre mapu — momentálne sa používa textová adresa. Doplňte presné
-   súradnice, ak ich klient dodá.
-6. **Právne stránky** `ochrana-osobnych-udajov.html` a `reklamacny-poriadok.html` sú
-   **placeholdery** — nechajte ich právne skontrolovať a doplniť.
-7. **Favicon** je vygenerovaný z loga (`assets/favicon-*.png`). Ak má klient
-   štvorcový variant loga, ideálne ho použiť pre ostrejšiu ikonu.
-8. **Doména v meta** — všetky `canonical`/`og:url`/`sitemap.xml` používajú
-   `https://www.stodolastarecasy.sk/`. Ak bude doména iná, prepíšte ju.
+   potvrdiť — sú použité aj v JSON-LD na domovskej stránke.
+5. **Právne stránky** `ochrana-osobnych-udajov` a `reklamacny-poriadok` sú
+   **placeholdery** — nechajte ich právne skontrolovať.
+6. **Doména** — viď sekcia *Nasadenie na Vercel* vyššie.
 
 ## Použité technológie
 
-- HTML5, CSS3 (custom properties, grid, flexbox), vanilla JavaScript
+- Next.js 15 (App Router), React 19
+- CSS3 (custom properties, grid, flexbox), vanilla JavaScript
 - Fonty: Fraunces + Hanken Grotesk (Google Fonts)
-- Google Maps embed, IntersectionObserver pre animácie
 - Štruktúrované dáta schema.org (JSON-LD)
 
-## Farby (dizajn systém)
-
-| Premenná | Hodnota | Použitie |
-|---|---|---|
-| `--cream` | `#FAF4EB` | Pozadie |
-| `--ink` | `#382820` | Tmavohnedý text (namiesto čiernej) |
-| `--brick` | `#9E5644` | Hlavná značková farba (z loga) |
-| `--rose` | `#C4868B` | Staro-ružový akcent |
-| `--gold` | `#D2A24C` | Hviezdičky / drobné akcenty |
-
 ---
+
+> **Pôvodný statický web** je zachovaný v priečinku `legacy/` (neservuje sa,
+> slúži len ako archív/referencia). Pokojne ho môžete zmazať.
 
 © 2026 Stodola Staré časy · JJ Solutions s.r.o.
